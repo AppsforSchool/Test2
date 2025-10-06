@@ -50,6 +50,7 @@
 </html>
  
 <script>
+  <script>
   function saveValue() {
   // ① input要素から値を取得
   const timerInput = document.getElementById('TimerInput');
@@ -63,6 +64,20 @@
     const timerInput = document.getElementById('TimerInput');
     timerInput.value = '12:30:00';
   }
-
+  function fastValue() {
+    const timerInput = document.getElementById('TimerInput');
+    timerInput.value = '12:10:00';
+  }
+  function nowValue() {
+    let beforeNow = new Date();
+    let now = new Date(beforeNow.getTime() + 80000);
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+    const timerInput = document.getElementById('TimerInput');
+    timerInput.value = formattedTime;
+  }
+  
 </script>
 
