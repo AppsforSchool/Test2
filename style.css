@@ -1,0 +1,72 @@
+/* ページ全体にBIZ UDゴシックを適用 */
+#TimerInput {
+  font-family: 'BIZ UDGothic', sans-serif;
+  font-size: 1.2em;
+  padding: 5px;
+  width: 120px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+body {
+    font-family: 'BIZ UDGothic', sans-serif;
+    background-color: #f0f0f0;
+}
+.TimerSetting {
+    padding: 1vw;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: auto;
+    /*max-width: 40.0rem;*/
+}
+
+.changeButtonMain {
+    font-family: 'BIZ UDGothic', sans-serif;
+  font-weight: 700;
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #007ab7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.changeButton {
+    font-family: 'BIZ UDGothic', sans-serif;
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #007ab7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.caption {
+  font-size: 0.1px;
+}
+
+.TimerDisplay {
+    padding: 1.0rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 40.0rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.TimerDisplayNumber{
+    font-family: 'BIZ UDGothic', sans-serif;
+    font-size: 8em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  color: #007ab7;
+}
