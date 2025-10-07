@@ -66,3 +66,7 @@ body {
     color: #007ab7;
   
 }
+#timermilliSecond {
+  font-size: 0.8em;
+  /* ここに追記 */
+}
