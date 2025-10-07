@@ -1,4 +1,3 @@
-/* ページ全体にBIZ UDゴシックを適用 */
 #TimerInput {
   font-family: 'BIZ UDGothic', sans-serif;
   font-size: 1.2em;
@@ -24,7 +23,7 @@ body {
 
 .changeButtonMain {
     font-family: 'BIZ UDGothic', sans-serif;
-  font-weight: 700;
+    font-weight: 700;
     padding: 8px 15px;
     font-size: 1em;
     cursor: pointer;
@@ -63,8 +62,7 @@ body {
     font-family: 'BIZ UDGothic', sans-serif;
     font-size: 8rem;
     font-weight: 700;
-    display: flex;
-    align-self: flex-end;
     line-height: 1;
     color: #007ab7;
+  
 }
