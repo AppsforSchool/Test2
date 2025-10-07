@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
-  
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>給食用タイマー</title>
-  <meta name="apple-mobile-web-app-capable" content="yes"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
@@ -15,62 +15,59 @@
 
 <body>
 
+  <div class="TimerSetting">
+    <div>
+      <label for="TimerInput">開始時刻：</label>
+      <input type="text" id="TimerInput" placeholder="時:分:秒" value="12:30:00" maxlength="8">
+      <button onclick="saveValue()" class="changeButtonMain">変更</button>
+      <button onclick="normalValue()" class="changeButton">通常日課
+      </button>
+      <button onclick="fastValue()" class="changeButton">短縮日課
+      </button>
+      <button onclick="nowValue()" class="changeButton">今の時刻</button>
 
-<div class="TimerSetting">
- <div>
-  <label for="TimerInput">開始時刻：</label>
-  <input type="text"
-         id="TimerInput"
-         placeholder="時:分:秒"
-         value="12:30:00"
-         maxlength="8"
-         >
- <button onclick="saveValue()" class="changeButtonMain">変更</button>
-  <button onclick="normalValue()" class="changeButton">通常日課
-  </button>
-  <button onclick="fastValue()" class="changeButton">短縮日課
-  </button>
-   <button onclick="nowValue()" class="changeButton">今の時刻</button>
-     
+    </div>
+    <div>
+      <p>現在の設定：<span id="displayArea">12:30:00</span>
+        <spen style="font-size: 0.8em;">※時刻は全てチャイム基準</spen>
+      </p>
+    </div>
   </div>
-  <div>
-<p>現在の設定：<span id="displayArea">12:30:00</span> <spen style="font-size: 0.8em;">※時刻は全てチャイム基準</spen></p>
-  </div>
-</div>
 
-<p></p>
-  
-<div class="TimerDisplay">
-  <spen id="beforeAfter">給食まで</spen>
-  <div class="TimerDisplayNumber">
-    <spen id="timerMinute">12</spen>:
-    <spen id="timerSecond">34</spen>
-    <spen id="timermilliSecond" style="font-size: 0.8em;">.567</spen>
+  <p></p>
+
+  <div class="TimerDisplay">
+    <spen id="beforeAfter">給食まで</spen>
+    <div class="TimerDisplayNumber">
+      <spen id="timerMinute">12</spen>:<spen id="timerSecond">34</spen><spen id="timermilliSecond" style="font-size: 0.8em;">.567</spen>
+    </div>
+
   </div>
-    
-</div>
-  
+
 </body>
+
 </html>
- 
+
 <script>
   function saveValue() {
-  // ① input要素から値を取得
-  const timerInput = document.getElementById('TimerInput');
-  const inputValue = timerInput.value;
+    // ① input要素から値を取得
+    const timerInput = document.getElementById('TimerInput');
+    const inputValue = timerInput.value;
+    // ② displayAreaに取得した値を表示
+    const displayArea = document.getElementById('displayArea');
+    displayArea.textContent = inputValue;
+  }
 
-  // ② displayAreaに取得した値を表示
-  const displayArea = document.getElementById('displayArea');
-  displayArea.textContent = inputValue;
-}
   function normalValue() {
     const timerInput = document.getElementById('TimerInput');
     timerInput.value = '12:30:00';
   }
+
   function fastValue() {
     const timerInput = document.getElementById('TimerInput');
     timerInput.value = '12:10:00';
   }
+
   function nowValue() {
     let beforeNow = new Date();
     let now = new Date(beforeNow.getTime() + 80000);
@@ -81,6 +78,5 @@
     const timerInput = document.getElementById('TimerInput');
     timerInput.value = formattedTime;
   }
-  
 </script>
 
