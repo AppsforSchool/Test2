@@ -128,9 +128,9 @@
     
     // 入力値を時間、分、秒に分割
     const parts = inputValue.split(':');
-    const hours = parseInt(parts[0], 10);
-    const minutes = parseInt(parts[1], 10);
-    const seconds = parseInt(parts[2], 10);
+    const hours = parseInt(parts, 10);
+    const minutes = parseInt(parts, 10);
+    const seconds = parseInt(parts, 10);
     
     // Dateオブジェクトを作成
     const inputDate = new Date();
