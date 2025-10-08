@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -18,7 +17,7 @@
   <div class="TimerSetting">
     <div>
       <label for="TimerInput">開始時刻：</label>
-      <input type="text" id="TimerInput" placeholder="時:分:秒" value="12:30:00" maxlength="8">
+      <input type="text" id="TimerInput" placeholder="時:分:秒" value="12:30:00" maxlength="8" inputmode="numeric">
       <button onclick="saveValue()" class="changeButtonMain">変更</button>
       <button onclick="normalValue()" class="changeButton">通常日課
       </button>
@@ -43,33 +42,125 @@
     </div>
 
   </div>
+  
+  <p></p>
+  
+  <div class="TimingRest">
+    <spen id="text">3分着替え・5分着席・10分配膳までの 残り時間を表示します</spen>
+    <div class="TimerDisplayNumberRest">
+    <spen id="timerMinute">--</spen>:<spen id="timerSecond">--</spen><spen id="timermilliSecond" style="font-size: 0.8em;">.---</spen>
+    </div>
+  </div>
 
 </body>
 
 </html>
 
 <script>
-  function saveValue() {
-    // ① input要素から値を取得
+    let timerInterval;
+  let startTime;
     const timerInput = document.getElementById('TimerInput');
+  const changeButtonMain = document.querySelector('.changeButtonMain');
+
+  // 入力フォーマットを自動的に整形する関数
+  timerInput.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/[^0-9]/g, ''); // 数字以外を削除
+    let formattedValue = '';
+    
+    if (value.length > 0) {
+      formattedValue += value.substring(0, 2);
+    }
+    if (value.length >= 3) {
+      formattedValue += ':' + value.substring(2, 4);
+    }
+    if (value.length >= 5) {
+      formattedValue += ':' + value.substring(4, 6);
+    }
+    e.target.value = formattedValue;
+    
+    validateInput();
+  });
+
+  // 入力の有効性を検証し、ボタンの有効/無効を切り替える関数
+  function validateInput() {
     const inputValue = timerInput.value;
-    // ② displayAreaに取得した値を表示
-    const displayArea = document.getElementById('displayArea');
-    displayArea.textContent = inputValue;
+    const timeRegex = /^(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]$/;
+    
+    if (timeRegex.test(inputValue)) {
+      changeButtonMain.disabled = false;
+      changeButtonMain.style.opacity = '1.0';
+    } else {
+      changeButtonMain.disabled = true;
+      changeButtonMain.style.opacity = '0.5';
+    }
   }
 
+  function updateTimer() {
+    const now = new Date();
+    const elapsedTime = now.getTime() - startTime.getTime();
+    
+    // マイナス値になった場合は停止
+    if (elapsedTime < 0) {
+      document.getElementById('beforeAfter').textContent = '給食が始まると 経過時刻が表示されます';
+      document.getElementById('timerMinute').textContent = '--';
+      document.getElementById('timerSecond').textContent = '--';
+      document.getElementById('timermilliSecond').textContent = '.---';
+      return;
+    }
+
+    const minutes = Math.floor(elapsedTime / 60000);
+    const seconds = Math.floor((elapsedTime % 60000) / 1000);
+    const milliseconds = elapsedTime % 1000;
+
+    document.getElementById('timerMinute').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('timerSecond').textContent = String(seconds).padStart(2, '0');
+    document.getElementById('timermilliSecond').textContent = '.' + String(milliseconds).padStart(3, '0');
+    
+    // 経過時間になったら表示を「給食後」に変更
+    document.getElementById('beforeAfter').textContent = '給食開始から';
+  }
+
+  function saveValue() {
+    // 既存のsetIntervalをクリア
+    if (timerInterval) {
+      clearInterval(timerInterval);
+    }
+    
+    const timerInput = document.getElementById('TimerInput');
+    const inputValue = timerInput.value;
+    
+    // 入力値を時間、分、秒に分割
+    const parts = inputValue.split(':');
+    const inputDate = new Date();
+    inputDate.setHours(parts[0], parts[1], parts[2], 0);
+
+    // 1分20秒（80,000ミリ秒）を引いた時刻を計算して設定
+    startTime = new Date(inputDate.getTime() - 80000);
+
+    // displayAreaに設定時刻を表示
+    const displayArea = document.getElementById('displayArea');
+    displayArea.textContent = inputValue;
+
+    // タイマーを開始
+    timerInterval = setInterval(updateTimer, 10);
+    
+    // 初回実行
+    updateTimer();
+  }
+  
   function normalValue() {
     const timerInput = document.getElementById('TimerInput');
     timerInput.value = '12:30:00';
+    //saveValue(); // 変更ボタンを押さなくても自動で更新されるように修正
   }
-
   function fastValue() {
     const timerInput = document.getElementById('TimerInput');
     timerInput.value = '12:10:00';
+    //saveValue(); // 変更ボタンを押さなくても自動で更新されるように修正
   }
-
   function nowValue() {
     let beforeNow = new Date();
+    // 80秒進めて、1分20秒を引く元の時間を取得
     let now = new Date(beforeNow.getTime() + 80000);
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -77,6 +168,12 @@
     const formattedTime = `${hours}:${minutes}:${seconds}`;
     const timerInput = document.getElementById('TimerInput');
     timerInput.value = formattedTime;
+    //saveValue(); // 変更ボタンを押さなくても自動で更新されるように修正
   }
-</script>
+  
+  // ページ読み込み時にタイマーを開始
+  document.addEventListener('DOMContentLoaded', () => {
+    saveValue();
+  });
 
+</script>

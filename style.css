@@ -66,7 +66,27 @@ body {
     color: #007ab7;
   
 }
+
 #timermilliSecond {
   font-size: 0.8em;
   /* ここに追記 */
+}
+
+.TimingRest {
+    padding: 1vw;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 40.0rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.TimerDisplayNumberRest {
+    font-family: 'BIZ UDGothic', sans-serif;
+    font-size: 8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #007ab7;
 }
