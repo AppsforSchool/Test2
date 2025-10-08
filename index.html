@@ -124,27 +124,20 @@
       clearInterval(timerInterval);
     }
     
+    const timerInput = document.getElementById('TimerInput');
     const inputValue = timerInput.value;
     
     // 入力値を時間、分、秒に分割
     const parts = inputValue.split(':');
-    const hours = parseInt(parts, 10);
-    const minutes = parseInt(parts, 10);
-    const seconds = parseInt(parts, 10);
-    
-    // Dateオブジェクトを作成
     const inputDate = new Date();
-    inputDate.setHours(hours, minutes, seconds, 0);
+    inputDate.setHours(parts[0], parts[1], parts[2], 0);
 
-    // 1分20秒（80,000ミリ秒）を引いた時刻を計算
-    targetTime = new Date(inputDate.getTime() - 80000);
+    // 1分20秒（80,000ミリ秒）を引いた時刻を計算して設定
+    startTime = new Date(inputDate.getTime() - 80000);
 
-    // displayAreaに設定時刻をゼロ埋めして表示
+    // displayAreaに設定時刻を表示
     const displayArea = document.getElementById('displayArea');
-    displayArea.textContent = 
-      String(hours).padStart(2, '0') + ':' +
-      String(minutes).padStart(2, '0') + ':' +
-      String(seconds).padStart(2, '0');
+    displayArea.textContent = inputValue;
 
     // タイマーを開始
     timerInterval = setInterval(updateTimer, 10);
